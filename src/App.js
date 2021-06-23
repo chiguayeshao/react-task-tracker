@@ -1,4 +1,4 @@
-//倒入header
+//导入header
 import Header from "./components/Header";
 
 function App() {

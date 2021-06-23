@@ -1,11 +1,14 @@
-//倒入PropTypes
+//导入PropTypes
 import PropTypes from 'prop-types'
+import Button from './Button'
 
 //参数传递title
 const Header = ({ title }) => {
     return (
-        <header>
+        <header className='header'>
             <h1>{title}</h1>
+            {/* 调用button，给button赋值 */}
+            <Button color='green' text='Add' />
         </header>
     )
 }
