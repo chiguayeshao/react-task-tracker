@@ -4,11 +4,17 @@ import Button from './Button'
 
 //参数传递title
 const Header = ({ title }) => {
+
+    const fuckClick = () => {
+        console.log('click')
+    }
+
     return (
         <header className='header'>
             <h1>{title}</h1>
             {/* 调用button，给button赋值 */}
-            <Button color='green' text='Add' />
+            {/* 将onclick传入buttton */}
+            <Button color='green' text='Add' onclick={fuckClick} />
         </header>
     )
 }
