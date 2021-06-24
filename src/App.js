@@ -39,12 +39,17 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== id))
   }
 
+  //toggle reminder
+  const toggleReminder = (id) => {
+    setTasks(tasks.map((task) => task.id === id ? { ...task, reminder : !task.reminder } : task))
+  }
+
   return (
     <div className='container'>
       {/* 调用header 也可以在此给title赋值*/}
       <Header />
       {/* 将tasks内容传入Tasks */}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} /> : 'fuck'}
+      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'fuck'}
     </div>
   );
 }
