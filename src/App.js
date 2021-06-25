@@ -2,6 +2,7 @@ import { useState } from "react";
 //导入header
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
+import AddTask from "./components/AddTask";
 
 const App = () => {
   //添加tasks
@@ -34,6 +35,13 @@ const App = () => {
     ]
   )
 
+  //add task
+  const addTask = (task) => {
+    const id = Math.floor(Math.random() * 10000) + 1
+    const newTask = { id, ...task }
+    setTasks([...tasks, newTask])
+  }
+
   //delete task
   const deleteTask = (id) => {
     setTasks(tasks.filter((task) => task.id !== id))
@@ -41,13 +49,14 @@ const App = () => {
 
   //toggle reminder
   const toggleReminder = (id) => {
-    setTasks(tasks.map((task) => task.id === id ? { ...task, reminder : !task.reminder } : task))
+    setTasks(tasks.map((task) => task.id === id ? { ...task, reminder: !task.reminder } : task))
   }
 
   return (
     <div className='container'>
       {/* 调用header 也可以在此给title赋值*/}
       <Header />
+      <AddTask onAdd={addTask} />
       {/* 将tasks内容传入Tasks */}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'fuck'}
     </div>
