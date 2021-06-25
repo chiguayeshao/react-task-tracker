@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 //导入header
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
+import Footer from "./components/Footer";
+import About from "./components/About";
 
 const App = () => {
 
@@ -67,13 +70,23 @@ const App = () => {
   }
 
   return (
-    <div className='container'>
-      {/* 调用header 也可以在此给title赋值*/}
-      <Header onShowAddTask={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
-      {showAddTask && <AddTask onAdd={addTask} />}
-      {/* 将tasks内容传入Tasks */}
-      {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'fuck'}
-    </div>
+    <Router>
+      <div className='container'>
+        {/* 调用header 也可以在此给title赋值*/}
+        <Header onShowAddTask={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+
+        <Route path='/' exact render={(props) => (
+          <>
+            {showAddTask && <AddTask onAdd={addTask} />}
+            {/* 将tasks内容传入Tasks */}
+            {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'fuck'}
+          </>
+        )} />
+
+        <Route path='/about' component={About} />
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
