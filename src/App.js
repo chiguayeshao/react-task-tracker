@@ -5,6 +5,9 @@ import Tasks from "./components/Tasks";
 import AddTask from "./components/AddTask";
 
 const App = () => {
+
+  const [showAddTask, setShowAddTask] = useState(false)
+
   //添加tasks
   const [tasks, setTasks] = useState(
     [
@@ -55,8 +58,8 @@ const App = () => {
   return (
     <div className='container'>
       {/* 调用header 也可以在此给title赋值*/}
-      <Header />
-      <AddTask onAdd={addTask} />
+      <Header onShowAddTask={() => setShowAddTask(!showAddTask)} showAdd={showAddTask} />
+      {showAddTask && <AddTask onAdd={addTask} />}
       {/* 将tasks内容传入Tasks */}
       {tasks.length > 0 ? <Tasks tasks={tasks} onDelete={deleteTask} onToggle={toggleReminder} /> : 'fuck'}
     </div>

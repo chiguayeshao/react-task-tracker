@@ -3,18 +3,14 @@ import PropTypes from 'prop-types'
 import Button from './Button'
 
 //参数传递title
-const Header = ({ title }) => {
-
-    const fuckClick = () => {
-        console.log('click')
-    }
+const Header = ({ title, onShowAddTask, showAdd }) => {
 
     return (
         <header className='header'>
             <h1>{title}</h1>
             {/* 调用button，给button赋值 */}
             {/* 将onclick传入buttton */}
-            <Button color='green' text='Add' onclick={fuckClick} />
+            <Button color={showAdd ? 'red' : 'green'} text={showAdd ? 'Close' : 'Add'} onclick={onShowAddTask} />
         </header>
     )
 }
