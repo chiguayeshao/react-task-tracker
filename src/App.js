@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 //导入header
 import Header from "./components/Header";
 import Tasks from "./components/Tasks";
@@ -9,34 +9,24 @@ const App = () => {
   const [showAddTask, setShowAddTask] = useState(false)
 
   //添加tasks
-  const [tasks, setTasks] = useState(
-    [
-      {
-        id: 1,
-        text: 'Doctor Appoinment1',
-        day: 'Feb 5th at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 2,
-        text: 'Doctor Appoinment2',
-        day: 'Feb 5th at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 3,
-        text: 'Doctor Appoinment3',
-        day: 'Feb 5th at 2:30pm',
-        reminder: true,
-      },
-      {
-        id: 4,
-        text: 'Doctor Appoinment4',
-        day: 'Feb 5th at 2:30pm',
-        reminder: true,
-      },
-    ]
-  )
+  const [tasks, setTasks] = useState([])
+
+  useEffect(() => {
+    const getTasks = async () => {
+      const tasksFromServer = await fetchTask()
+      setTasks(tasksFromServer)
+    }
+
+    getTasks()
+  }, [])
+
+  //fetch tasks 
+  const fetchTask = async () => {
+    const res = await fetch('http://localhost:5555/tasks')
+    const data = await res.json()
+
+    return data
+  }
 
   //add task
   const addTask = (task) => {
